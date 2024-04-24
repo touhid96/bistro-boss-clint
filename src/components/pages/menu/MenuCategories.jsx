@@ -4,7 +4,6 @@ import Cover from "../../shared/Cover";
 import MenuItem from "../../shared/MenuItem";
 
 const MenuCategories = ({ items, title, coverImg }) => {
-  console.log(title);
   return (
     <div className="pt-8">
       {title && <Cover image={coverImg} title={title}></Cover>}

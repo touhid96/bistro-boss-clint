@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import { FaShoppingCart } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import { AuthContext } from "../../provider/AuthProvider";
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
   return (
     <div className="navbar fixed z-30 opacity-40 bg-base-100 max-w-screen-xl text-white">
       <div className="navbar-start">
@@ -35,6 +42,28 @@ const NavBar = () => {
             <li>
               <Link to="/order/salad">Order Now</Link>
             </li>
+            <li>
+              <Link to="/">
+                Cart
+                <FaShoppingCart />
+              </Link>
+            </li>
+            {user ? (
+              <li>
+                <button className="btn btn-ghost" onClick={handleLogout}>
+                  Logout
+                </button>
+                <span>{user?.displayName}</span>
+              </li>
+            ) : (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
+
+            <li>
+              <Link to="/signup">Signup</Link>
+            </li>
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">Bistro Boss</a>
@@ -49,6 +78,29 @@ const NavBar = () => {
           </li>
           <li>
             <Link to="/order/salad">Order Now</Link>
+          </li>
+          <Link to="/">
+            <div className="flex mt-3">
+              <FaShoppingCart />
+              <div className="badge badge-secondary">22</div>
+            </div>
+          </Link>
+          {user ? (
+            <li>
+              <button className="btn btn-ghost" onClick={handleLogout}>
+                Logout
+              </button>
+            </li>
+          ) : (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
+          <li>
+            <Link to="/signup">Signup</Link>
+          </li>
+          <li>
+            <Link to="/secret">Secret</Link>
           </li>
         </ul>
       </div>
