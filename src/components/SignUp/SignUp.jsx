@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../provider/AuthProvider";
+import SocialLogin from "../shared/socialogin/SocialLogin";
 const SignUp = () => {
   const navigate = useNavigate();
   const {
@@ -21,12 +22,23 @@ const SignUp = () => {
       console.log(loggedUser);
       updateUserProfile(data.name, data.photourl)
         .then(() => {
-          console.log("user profile info updated");
+          const saveUser = { name: data.name, email: data.email };
+          fetch("http://localhost:4000/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                reset();
 
-          reset;
-
-          Swal.fire("Your data is updated");
-          navigate("/");
+                Swal.fire("Your data is updated");
+                navigate("/");
+              }
+            });
         })
         .catch((error) => {
           console.log(error);
@@ -129,6 +141,7 @@ const SignUp = () => {
             <p>
               <small>Already have an account</small> <Link to="/login">Login Here</Link>
             </p>
+            <SocialLogin></SocialLogin>
           </div>
         </div>
       </div>

@@ -1,16 +1,19 @@
 import React, { useContext } from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import useCart from "../../hooks/useCArt";
 import { AuthContext } from "../../provider/AuthProvider";
+
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
   const handleLogout = () => {
     logOut()
       .then(() => {})
       .catch((error) => console.log(error));
   };
   return (
-    <div className="navbar fixed z-30 opacity-40 bg-base-100 max-w-screen-xl text-white">
+    <div className="navbar fixed z-30 opacity-40 bg-base-100 max-w-screen-xl text-blue">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -31,22 +34,22 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+            className="sidebar menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <Link to="/">Home</Link>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <Link to="/menu">Our Menu</Link>
+              <NavLink to="/menu">Our Menu</NavLink>
             </li>
             <li>
-              <Link to="/order/salad">Order Now</Link>
+              <NavLink to="/order/salad">Order Now</NavLink>
             </li>
             <li>
-              <Link to="/">
+              <NavLink to="/dashboard/mycart">
                 Cart
                 <FaShoppingCart />
-              </Link>
+              </NavLink>
             </li>
             {user ? (
               <li>
@@ -57,12 +60,12 @@ const NavBar = () => {
               </li>
             ) : (
               <li>
-                <Link to="/login">Login</Link>
+                <NavLink to="/login">Login</NavLink>
               </li>
             )}
 
             <li>
-              <Link to="/signup">Signup</Link>
+              <NavLink to="/signup">Signup</NavLink>
             </li>
           </ul>
         </div>
@@ -71,20 +74,20 @@ const NavBar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <Link to="/menu">Our Menu</Link>
+            <NavLink to="/menu">Our Menu</NavLink>
           </li>
           <li>
-            <Link to="/order/salad">Order Now</Link>
+            <NavLink to="/order/salad">Order Now</NavLink>
           </li>
-          <Link to="/">
+          <NavLink to="/dashboard/mycart">
             <div className="flex mt-3">
               <FaShoppingCart />
-              <div className="badge badge-secondary">22</div>
+              <div className="badge badge-secondary">+{cart.length || 0}</div>
             </div>
-          </Link>
+          </NavLink>
           {user ? (
             <li>
               <button className="btn btn-ghost" onClick={handleLogout}>
@@ -93,14 +96,14 @@ const NavBar = () => {
             </li>
           ) : (
             <li>
-              <Link to="/login">Login</Link>
+              <NavLink to="/login">Login</NavLink>
             </li>
           )}
           <li>
-            <Link to="/signup">Signup</Link>
+            <NavLink to="/signup">Signup</NavLink>
           </li>
           <li>
-            <Link to="/secret">Secret</Link>
+            <NavLink to="/secret">Secret</NavLink>
           </li>
         </ul>
       </div>
