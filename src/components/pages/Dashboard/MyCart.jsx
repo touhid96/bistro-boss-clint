@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
 import { FaTrashAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCArt";
 const MyCart = () => {
@@ -34,7 +35,9 @@ const MyCart = () => {
       <div className="font-bold uppercase flex justify-evenly h-[60] items-center">
         <h2 className="text-2xl">Total Order:{cart.length}</h2>
         <h2 className="text-2xl">Total Order:{total}</h2>
-        <button className="btn btn-warning btn-sm"> Pay</button>
+        <Link to="/dashboard/payment">
+          <button className="btn btn-warning btn-sm"> Pay</button>
+        </Link>
       </div>
       <div>
         <div className="overflow-x-auto">
