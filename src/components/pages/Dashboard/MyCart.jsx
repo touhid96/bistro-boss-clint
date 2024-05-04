@@ -7,7 +7,6 @@ const MyCart = () => {
   const [cart, refetch] = useCart();
   const total = cart.reduce((sum, item) => item.price + sum, 0);
   const handleDelete = (row) => {
-    console.log(row);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",

@@ -5,6 +5,7 @@ import Dashboard from "../layout/Dashboard";
 import Main from "../layout/Main";
 import AddItem from "../pages/Dashboard/AddItem";
 import AllUsers from "../pages/Dashboard/AllUsers";
+import ManageItem from "../pages/Dashboard/ManageItem";
 import MyCart from "../pages/Dashboard/MyCart";
 import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
@@ -69,6 +70,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddItem></AddItem>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manageitem",
+        element: (
+          <AdminRoute>
+            <ManageItem></ManageItem>
           </AdminRoute>
         ),
       },
